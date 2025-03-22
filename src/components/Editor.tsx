@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HexColorPicker } from 'react-colorful';
 import { RootState } from '../store/store';
 import { updateSectionColor, updateContent, updateImage, updateFont } from '../store/templateSlice';
-import { Settings, Type, Image, X, Menu } from 'lucide-react';
+import { Type, Image, X, Menu } from 'lucide-react';
 import { ImageUploader } from './ImageUploader';
 
 const fontOptions = [
@@ -16,7 +16,6 @@ export const Editor: React.FC = () => {
   const dispatch = useDispatch();
   const { selectedTemplate, customizations } = useSelector((state: RootState) => state.template);
   const [activeSectionId, setActiveSectionId] = React.useState<string | null>(null);
-  const [showColorPicker, setShowColorPicker] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(true);
 
   if (!selectedTemplate) return null;
@@ -46,15 +45,6 @@ export const Editor: React.FC = () => {
         <div className="h-full flex flex-col">
           <div className="flex items-center justify-between p-4 border-b">
             <h2 className="text-xl font-semibold">Editor</h2>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setShowColorPicker(!showColorPicker)}
-                className="p-2 rounded hover:bg-gray-100"
-                title="Toggle color picker"
-              >
-                <Settings className="w-5 h-5" />
-              </button>
-            </div>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4">
@@ -70,6 +60,19 @@ export const Editor: React.FC = () => {
 
                 {activeSectionId === section.id && (
                   <div className="mt-3 space-y-4">
+                    {/* Color Picker */}
+                    <div className="mt-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Background Color
+                      </label>
+                      <HexColorPicker
+                        color={customizations.colors[section.id] || section.style.backgroundColor}
+                        onChange={(color) =>
+                          dispatch(updateSectionColor({ sectionId: section.id, color }))
+                        }
+                      />
+                    </div>
+
                     {/* Font Selection */}
                     <div className="space-y-2">
                       <label className="block text-sm font-medium text-gray-700">
@@ -129,24 +132,11 @@ export const Editor: React.FC = () => {
                               className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
                             />
                           </div>
+                
                         );
                       }
                       return null;
                     })}
-
-                    {showColorPicker && (
-                      <div className="mt-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Background Color
-                        </label>
-                        <HexColorPicker
-                          color={customizations.colors[section.id] || section.style.backgroundColor}
-                          onChange={(color) =>
-                            dispatch(updateSectionColor({ sectionId: section.id, color }))
-                          }
-                        />
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
