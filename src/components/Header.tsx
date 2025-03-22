@@ -1,16 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
-import { ArrowLeft, LogOut } from 'lucide-react';
+import { setEditing } from '../store/templateSlice';
+import { ArrowLeft, LogOut, Edit, Eye } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
-  const { selectedTemplate } = useSelector((state: RootState) => state.template);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { selectedTemplate, isEditing } = useSelector((state: RootState) => state.template);
 
   const handleLogout = () => {
     // Handle logout logic
     navigate('/signin');
+  };
+
+  const toggleEditing = () => {
+    dispatch(setEditing(!isEditing));
   };
 
   return (
@@ -35,6 +41,24 @@ export const Header: React.FC = () => {
           </h1>
         </div>
         <div className="flex items-center gap-4">
+          {selectedTemplate && (
+            <button
+              onClick={toggleEditing}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900"
+            >
+              {isEditing ? (
+                <>
+                  <Eye className="w-5 h-5" />
+                  Preview Mode
+                </>
+              ) : (
+                <>
+                  <Edit className="w-5 h-5" />
+                  Edit Mode
+                </>
+              )}
+            </button>
+          )}
           <button
             onClick={handleLogout}
             className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900"
@@ -42,7 +66,7 @@ export const Header: React.FC = () => {
             <LogOut className="w-5 h-5" />
             Logout
           </button>
-          {selectedTemplate && (
+          {selectedTemplate && isEditing && (
             <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
               Save Changes
             </button>

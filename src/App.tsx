@@ -10,11 +10,12 @@ import { SignIn } from './components/auth/SignIn';
 import { SignUp } from './components/auth/SignUp';
 import { ForgotPassword } from './components/auth/ForgotPassword';
 import { LandingPage } from './components/LandingPage';
+import { ContactUs } from './components/ContactUs';
 import { useSelector } from 'react-redux';
 import { RootState } from './store/store';
 
 const MainContent = () => {
-  const selectedTemplate = useSelector((state: RootState) => state.template.selectedTemplate);
+  const { selectedTemplate, isEditing } = useSelector((state: RootState) => state.template);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -22,10 +23,10 @@ const MainContent = () => {
       <div className="pt-16">
         {selectedTemplate ? (
           <div className="flex">
-            <div className="flex-1 mr-0 md:mr-80">
+            <div className={`flex-1 ${isEditing ? 'mr-0 md:mr-80' : ''}`}>
               <Preview />
             </div>
-            <Editor />
+            {isEditing && <Editor />}
           </div>
         ) : (
           <div className="container mx-auto py-12">
@@ -47,6 +48,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/templates" element={<MainContent />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
@@ -54,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

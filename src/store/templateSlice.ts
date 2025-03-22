@@ -3,6 +3,7 @@ import { Template } from '../types/template';
 
 interface TemplateState {
   selectedTemplate: Template | null;
+  isEditing: boolean;
   customizations: {
     colors: Record<string, string>;
     content: Record<string, string>;
@@ -13,6 +14,7 @@ interface TemplateState {
 
 const initialState: TemplateState = {
   selectedTemplate: null,
+  isEditing: true,
   customizations: {
     colors: {},
     content: {},
@@ -27,8 +29,10 @@ const templateSlice = createSlice({
   reducers: {
     setTemplate: (state, action: PayloadAction<Template>) => {
       state.selectedTemplate = action.payload;
-      // Reset customizations when selecting a new template
       state.customizations = initialState.customizations;
+    },
+    setEditing: (state, action: PayloadAction<boolean>) => {
+      state.isEditing = action.payload;
     },
     updateSectionColor: (state, action: PayloadAction<{ sectionId: string; color: string }>) => {
       state.customizations.colors[action.payload.sectionId] = action.payload.color;
@@ -45,5 +49,12 @@ const templateSlice = createSlice({
   },
 });
 
-export const { setTemplate, updateSectionColor, updateContent, updateImage, updateFont } = templateSlice.actions;
+export const { 
+  setTemplate, 
+  setEditing, 
+  updateSectionColor, 
+  updateContent, 
+  updateImage, 
+  updateFont 
+} = templateSlice.actions;
 export default templateSlice.reducer;

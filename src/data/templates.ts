@@ -170,4 +170,117 @@ export const templates: Template[] = [
       },
     ],
   },
+  {
+    id: 'restaurant-template',
+    name: 'Gourmet Restaurant',
+    previewImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=600',
+    sections: [
+      {
+        id: 'hero',
+        type: 'hero',
+        content: {
+          heading: 'Fine Dining Experience',
+          subheading: 'Culinary excellence in the heart of the city',
+          ctaText: 'Make a Reservation',
+          backgroundImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=1200',
+        },
+        style: {
+          backgroundColor: '#1a202c',
+          textColor: '#ffffff',
+          padding: '6rem',
+        },
+      },
+      {
+        id: 'features',
+        type: 'features',
+        content: {
+          heading: 'Our Specialties',
+          features: [
+            { title: 'Fine Dining', description: 'Exquisite culinary creations', icon: 'Utensils' },
+            { title: 'Wine Selection', description: 'Curated wine collection', icon: 'Wine' },
+            { title: 'Private Events', description: 'Elegant event spaces', icon: 'Users' },
+          ],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#1a202c',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'menu',
+        type: 'portfolio',
+        content: {
+          heading: 'Our Menu',
+          projects: [
+            {
+              title: 'Appetizers',
+              category: 'Starters',
+              image: 'https://images.unsplash.com/photo-1546039907-7fa05f864c02?auto=format&fit=crop&q=80&w=600',
+              description: 'Begin your culinary journey',
+            },
+            {
+              title: 'Main Course',
+              category: 'Entrees',
+              image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600',
+              description: 'Signature dishes crafted with care',
+            },
+            {
+              title: 'Desserts',
+              category: 'Sweet Endings',
+              image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=600',
+              description: 'Indulge in sweet perfection',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#f7fafc',
+          textColor: '#1a202c',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'testimonials',
+        type: 'testimonials',
+        content: {
+          heading: 'Guest Reviews',
+          testimonials: [
+            {
+              quote: 'An unforgettable dining experience',
+              author: 'Michael Brown',
+              position: 'Food Critic',
+              image: 'https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&q=80&w=150',
+            },
+            {
+              quote: 'The best fine dining in the city',
+              author: 'Emma Wilson',
+              position: 'Food Blogger',
+              image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&q=80&w=150',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#1a202c',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'contact',
+        type: 'contact',
+        content: {
+          heading: 'Make a Reservation',
+          subheading: 'Join us for an unforgettable dining experience',
+          email: 'reservations@gourmet.com',
+          phone: '+1 (555) 234-5678',
+          address: '789 Culinary Ave, New York, NY 10002',
+        },
+        style: {
+          backgroundColor: '#1a202c',
+          textColor: '#ffffff',
+          padding: '4rem',
+        },
+      },
+    ],
+  },
 ];
