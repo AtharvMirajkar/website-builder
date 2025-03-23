@@ -15,13 +15,20 @@ export const Preview: React.FC = () => {
       padding: section.style.padding,
     };
 
-    const content = Object.entries(section.content).reduce((acc: any, [key, value]) => {
-      acc[key] = customizations.content[`${section.id}-${key}`] || value;
-      return acc;
-    }, {});
+    const getContent = (key: string, defaultValue: string) => {
+      return customizations.content[`${section.id}-${key}`] || defaultValue;
+    };
 
     const getImage = (key: string, defaultImage: string) => {
       return customizations.images[`${section.id}-${key}`] || defaultImage;
+    };
+
+    const getFeatureContent = (index: number, key: string, defaultValue: string) => {
+      return customizations.content[`${section.id}-feature-${index}-${key}`] || defaultValue;
+    };
+
+    const getTestimonialContent = (index: number, key: string, defaultValue: string) => {
+      return customizations.content[`${section.id}-testimonial-${index}-${key}`] || defaultValue;
     };
 
     const sectionFont = customizations.fonts[section.id] || 'font-sans';
@@ -36,17 +43,17 @@ export const Preview: React.FC = () => {
           <div
             style={{
               ...style,
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${getImage('backgroundImage', content.backgroundImage)})`,
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${getImage('backgroundImage', section.content.backgroundImage)})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
             className="text-center min-h-[600px] flex items-center justify-center"
           >
             <div>
-              <h1 className="text-5xl font-bold mb-4">{content.heading}</h1>
-              <p className="text-xl mb-8">{content.subheading}</p>
+              <h1 className="text-5xl font-bold mb-4">{getContent('heading', section.content.heading)}</h1>
+              <p className="text-xl mb-8">{getContent('subheading', section.content.subheading)}</p>
               <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-                {content.ctaText}
+                {getContent('ctaText', section.content.ctaText)}
               </button>
             </div>
           </div>
@@ -55,15 +62,20 @@ export const Preview: React.FC = () => {
       case 'features':
         return renderContent(
           <div style={style}>
-            <h2 className="text-3xl font-bold text-center mb-12">{content.heading}</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              {getContent('heading', section.content.heading)}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {content.features.map((feature: any, index: number) => {
-                const Icon = Icons[feature.icon as keyof typeof Icons];
+              {section.content.features.map((feature: any, index: number) => {
+                const iconName = getFeatureContent(index, 'icon', feature.icon);
+                const Icon = Icons[iconName as keyof typeof Icons];
                 return (
                   <div key={index} className="text-center">
                     {Icon && <Icon className="w-12 h-12 mx-auto mb-4" />}
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p>{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2">
+                      {getFeatureContent(index, 'title', feature.title)}
+                    </h3>
+                    <p>{getFeatureContent(index, 'description', feature.description)}</p>
                   </div>
                 );
               })}
@@ -74,18 +86,26 @@ export const Preview: React.FC = () => {
       case 'testimonials':
         return renderContent(
           <div style={style}>
-            <h2 className="text-3xl font-bold text-center mb-12">{content.heading}</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              {getContent('heading', section.content.heading)}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {content.testimonials.map((testimonial: any, index: number) => (
+              {section.content.testimonials.map((testimonial: any, index: number) => (
                 <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
                   <img
                     src={getImage(`testimonial-${index}`, testimonial.image)}
-                    alt={testimonial.author}
+                    alt={getTestimonialContent(index, 'author', testimonial.author)}
                     className="w-16 h-16 rounded-full mx-auto mb-4 object-cover"
                   />
-                  <p className="text-lg italic mb-4">"{testimonial.quote}"</p>
-                  <p className="font-semibold">{testimonial.author}</p>
-                  <p className="text-sm text-gray-600">{testimonial.position}</p>
+                  <p className="text-lg italic mb-4">
+                    "{getTestimonialContent(index, 'quote', testimonial.quote)}"
+                  </p>
+                  <p className="font-semibold">
+                    {getTestimonialContent(index, 'author', testimonial.author)}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    {getTestimonialContent(index, 'position', testimonial.position)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -95,9 +115,9 @@ export const Preview: React.FC = () => {
       case 'portfolio':
         return renderContent(
           <div style={style}>
-            <h2 className="text-3xl font-bold text-center mb-12">{content.heading}</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">{getContent('heading', section.content.heading)}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {content.projects.map((project: any, index: number) => (
+              {section.content.projects.map((project: any, index: number) => (
                 <div key={index} className="group relative overflow-hidden rounded-lg">
                   <img
                     src={getImage(`project-${index}`, project.image)}
@@ -123,16 +143,16 @@ export const Preview: React.FC = () => {
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
               <div className="md:w-1/2">
                 <img
-                  src={getImage('profile', content.image)}
+                  src={getImage('image', section.content.image)}
                   alt="Profile"
-                  className="rounded-lg shadow-lg w-full"
+                  className="rounded-lg shadow-lg w-full h-[400px] object-cover"
                 />
               </div>
               <div className="md:w-1/2">
-                <h2 className="text-3xl font-bold mb-6">{content.heading}</h2>
-                <p className="text-lg mb-6">{content.description}</p>
+                <h2 className="text-3xl font-bold mb-6">{getContent('heading', section.content.heading)}</h2>
+                <p className="text-lg mb-6">{getContent('description', section.content.description)}</p>
                 <div className="grid grid-cols-2 gap-4">
-                  {content.skills.map((skill: string, index: number) => (
+                  {section.content.skills.map((skill: string, index: number) => (
                     <div key={index} className="bg-white bg-opacity-20 rounded-lg p-3 text-center">
                       {skill}
                     </div>
@@ -146,27 +166,27 @@ export const Preview: React.FC = () => {
       case 'contact':
         return renderContent(
           <div style={style} className="text-center">
-            <h2 className="text-3xl font-bold mb-4">{content.heading}</h2>
-            <p className="text-xl mb-8">{content.subheading}</p>
+            <h2 className="text-3xl font-bold mb-4">{getContent('heading', section.content.heading)}</h2>
+            <p className="text-xl mb-8">{getContent('subheading', section.content.subheading)}</p>
             <div className="max-w-2xl mx-auto">
-              {content.email && (
+              {section.content.email && (
                 <p className="mb-4">
-                  <strong>Email:</strong> {content.email}
+                  <strong>Email:</strong> {getContent('email', section.content.email)}
                 </p>
               )}
-              {content.phone && (
+              {section.content.phone && (
                 <p className="mb-4">
-                  <strong>Phone:</strong> {content.phone}
+                  <strong>Phone:</strong> {getContent('phone', section.content.phone)}
                 </p>
               )}
-              {content.address && (
+              {section.content.address && (
                 <p className="mb-4">
-                  <strong>Address:</strong> {content.address}
+                  <strong>Address:</strong> {getContent('address', section.content.address)}
                 </p>
               )}
-              {content.social && (
+              {section.content.social && (
                 <div className="flex justify-center gap-4 mt-6">
-                  {Object.entries(content.social).map(([platform, handle]) => (
+                  {Object.entries(section.content.social).map(([platform, handle]) => (
                     <a
                       key={platform}
                       href={`https://${platform}.com/${handle}`}
