@@ -1,8 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Layout, Palette, Image, Type, Zap, Globe, Github, Twitter, Linkedin } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleTemplateNavigation = () => {
+    navigate('/templates');
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
@@ -15,9 +21,12 @@ export const LandingPage: React.FC = () => {
               </Link>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/templates" className="text-gray-600 hover:text-gray-900">
+              <button 
+                onClick={handleTemplateNavigation}
+                className="text-gray-600 hover:text-gray-900"
+              >
                 Templates
-              </Link>
+              </button>
               <Link to="/signin" className="text-gray-600 hover:text-gray-900">
                 Sign In
               </Link>
@@ -53,18 +62,18 @@ export const LandingPage: React.FC = () => {
               Build professional websites in minutes with our intuitive drag-and-drop builder. Choose from stunning templates and customize them to match your brand.
             </p>
             <div className="mt-10 flex justify-center gap-4">
-              <Link
-                to="/templates"
+              <button
+                onClick={handleTemplateNavigation}
                 className="px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 md:py-4 md:text-lg md:px-10"
               >
                 Start Building
-              </Link>
-              <Link
-                to="/templates"
+              </button>
+              <button
+                onClick={handleTemplateNavigation}
                 className="px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white hover:bg-white/10 md:py-4 md:text-lg md:px-10"
               >
                 View Templates
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -207,9 +216,12 @@ export const LandingPage: React.FC = () => {
               <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/templates" className="text-gray-400 hover:text-white">
+                  <button
+                    onClick={handleTemplateNavigation}
+                    className="text-gray-400 hover:text-white"
+                  >
                     Templates
-                  </Link>
+                  </button>
                 </li>
                 <li>
                   <Link to="/signin" className="text-gray-400 hover:text-white">

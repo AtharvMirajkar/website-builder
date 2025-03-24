@@ -24,13 +24,14 @@ export const Header: React.FC = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-4">
           {selectedTemplate ? (
-            <button
-              onClick={() => navigate('/templates')}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              Back to Templates
-            </button>
+            // <button
+            //   onClick={() => navigate('/templates')}
+            //   className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+            // >
+            //   <ArrowLeft className="w-5 h-5" />
+            //   Back to Templates
+            // </button>
+      <></>
           ) : (
             <Link to="/" className="text-xl font-bold text-gray-900">
               Website Builder

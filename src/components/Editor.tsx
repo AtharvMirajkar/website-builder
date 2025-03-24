@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HexColorPicker } from 'react-colorful';
 import { RootState } from '../store/store';
 import { updateSectionColor, updateContent, updateImage, updateFont } from '../store/templateSlice';
-import { Type, Image, X, Menu } from 'lucide-react';
+import { ChevronDown, ChevronUp, Image, X, Menu } from 'lucide-react';
 import { ImageUploader } from './ImageUploader';
 
 const fontOptions = [
@@ -30,6 +30,10 @@ export const Editor: React.FC = () => {
 
   const handleContentUpdate = (key: string, content: string) => {
     dispatch(updateContent({ key, content }));
+  };
+
+  const toggleSection = (sectionId: string) => {
+    setActiveSectionId(activeSectionId === sectionId ? null : sectionId);
   };
 
   const renderFeatureInputs = (section: any) => {
@@ -118,6 +122,55 @@ export const Editor: React.FC = () => {
     ));
   };
 
+  const renderPortfolioInputs = (section: any) => {
+    return section.content.projects.map((project: any, index: number) => (
+      <div key={index} className="border rounded-lg p-4 mb-4">
+        <h4 className="font-medium mb-2">Project {index + 1}</h4>
+        <div className="space-y-3">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Title</label>
+            <input
+              type="text"
+              value={customizations.content[`${section.id}-project-${index}-title`] || project.title}
+              onChange={(e) => handleContentUpdate(`${section.id}-project-${index}-title`, e.target.value)}
+              className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Category</label>
+            <input
+              type="text"
+              value={customizations.content[`${section.id}-project-${index}-category`] || project.category}
+              onChange={(e) => handleContentUpdate(`${section.id}-project-${index}-category`, e.target.value)}
+              className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              value={customizations.content[`${section.id}-project-${index}-description`] || project.description}
+              onChange={(e) => handleContentUpdate(`${section.id}-project-${index}-description`, e.target.value)}
+              className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"
+              rows={2}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Project Image</label>
+            <input
+              type="text"
+              value={customizations.images[`${section.id}-project-${index}`] || project.image}
+              onChange={(e) => handleImageUpdate(`${section.id}-project-${index}`, e.target.value)}
+              className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 mb-2"
+            />
+            <ImageUploader
+              onImageSelect={(dataUrl) => handleImageUpdate(`${section.id}-project-${index}`, dataUrl)}
+            />
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <>
       <button
@@ -138,13 +191,17 @@ export const Editor: React.FC = () => {
           <div className="flex-1 overflow-y-auto p-4">
             {selectedTemplate.sections.map((section) => (
               <div key={section.id} className="mb-6">
-                <div
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded cursor-pointer"
-                  onClick={() => setActiveSectionId(section.id)}
+                <button
+                  className="flex items-center justify-between w-full p-3 bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+                  onClick={() => toggleSection(section.id)}
                 >
                   <h3 className="font-medium">{section.type.charAt(0).toUpperCase() + section.type.slice(1)}</h3>
-                  <Type className="w-4 h-4" />
-                </div>
+                  {activeSectionId === section.id ? (
+                    <ChevronUp className="w-5 h-5 text-gray-500" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-500" />
+                  )}
+                </button>
 
                 {activeSectionId === section.id && (
                   <div className="mt-3 space-y-4">
@@ -204,6 +261,21 @@ export const Editor: React.FC = () => {
                           />
                         </div>
                         {renderTestimonialInputs(section)}
+                      </div>
+                    )}
+
+                    {section.type === 'portfolio' && (
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700">Section Heading</label>
+                          <input
+                            type="text"
+                            value={customizations.content[`${section.id}-heading`] || section.content.heading}
+                            onChange={(e) => handleContentUpdate(`${section.id}-heading`, e.target.value)}
+                            className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"
+                          />
+                        </div>
+                        {renderPortfolioInputs(section)}
                       </div>
                     )}
 

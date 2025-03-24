@@ -11,11 +11,18 @@ import { SignUp } from './components/auth/SignUp';
 import { ForgotPassword } from './components/auth/ForgotPassword';
 import { LandingPage } from './components/LandingPage';
 import { ContactUs } from './components/ContactUs';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store/store';
+import { setTemplate } from './store/templateSlice';
 
 const MainContent = () => {
+  const dispatch = useDispatch();
   const { selectedTemplate, isEditing } = useSelector((state: RootState) => state.template);
+
+  // Reset selected template when navigating to templates page
+  React.useEffect(() => {
+    dispatch(setTemplate(null));
+  }, [dispatch]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -56,4 +63,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
