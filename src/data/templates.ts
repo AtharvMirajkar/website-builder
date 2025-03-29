@@ -283,4 +283,134 @@ export const templates: Template[] = [
       },
     ],
   },
+  {
+    id: 'fitness-gym',
+    name: 'Power Fitness Gym',
+    previewImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600',
+    sections: [
+      {
+        id: 'hero',
+        type: 'hero',
+        content: {
+          heading: 'Transform Your Body, Transform Your Life',
+          subheading: 'Join the ultimate fitness experience with state-of-the-art equipment and expert trainers',
+          ctaText: 'Start Your Journey',
+          backgroundImage: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=1200',
+        },
+        style: {
+          backgroundColor: '#18181b',
+          textColor: '#ffffff',
+          padding: '6rem',
+        },
+      },
+      {
+        id: 'features',
+        type: 'features',
+        content: {
+          heading: 'Why Choose Us',
+          features: [
+            { title: 'Expert Trainers', description: 'Certified professionals to guide your fitness journey', icon: 'Users' },
+            { title: 'Modern Equipment', description: 'State-of-the-art machines and free weights', icon: 'Dumbbell' },
+            { title: '24/7 Access', description: 'Train anytime that suits your schedule', icon: 'Clock' },
+          ],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#18181b',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'classes',
+        type: 'portfolio',
+        content: {
+          heading: 'Our Classes',
+          projects: [
+            {
+              title: 'HIIT Training',
+              category: 'Cardio',
+              image: 'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?auto=format&fit=crop&q=80&w=600',
+              description: 'High-intensity interval training for maximum results',
+            },
+            {
+              title: 'Strength Training',
+              category: 'Muscle Building',
+              image: 'https://images.unsplash.com/photo-1533681904393-9ab6eee7e408?auto=format&fit=crop&q=80&w=600',
+              description: 'Build muscle and increase strength',
+            },
+            {
+              title: 'Yoga & Flexibility',
+              category: 'Mind & Body',
+              image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600',
+              description: 'Improve flexibility and reduce stress',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#f4f4f5',
+          textColor: '#18181b',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'testimonials',
+        type: 'testimonials',
+        content: {
+          heading: 'Success Stories',
+          testimonials: [
+            {
+              quote: 'Lost 30 pounds and gained confidence. The trainers here are amazing!',
+              author: 'David Chen',
+              position: 'Member since 2022',
+              image: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?auto=format&fit=crop&q=80&w=150',
+            },
+            {
+              quote: 'The variety of classes keeps me motivated. Best gym experience ever!',
+              author: 'Maria Rodriguez',
+              position: 'Member since 2023',
+              image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#18181b',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'membership',
+        type: 'features',
+        content: {
+          heading: 'Membership Plans',
+          features: [
+            { title: 'Basic Plan', description: 'Access to gym floor and basic equipment - $29/month', icon: 'Star' },
+            { title: 'Premium Plan', description: 'Includes classes and personal training - $59/month', icon: 'Award' },
+            { title: 'Elite Plan', description: 'All access pass with premium perks - $99/month', icon: 'Crown' },
+          ],
+        },
+        style: {
+          backgroundColor: '#18181b',
+          textColor: '#ffffff',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'contact',
+        type: 'contact',
+        content: {
+          heading: 'Start Your Fitness Journey',
+          subheading: 'Get your free consultation today',
+          email: 'join@powerfitness.com',
+          phone: '+1 (555) 987-6543',
+          address: '456 Fitness Boulevard, New York, NY 10003',
+        },
+        style: {
+          backgroundColor: '#dc2626',
+          textColor: '#ffffff',
+          padding: '4rem',
+        },
+      },
+    ],
+  },
 ];
