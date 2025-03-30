@@ -46,6 +46,15 @@ const templateSlice = createSlice({
     updateFont: (state, action: PayloadAction<{ sectionId: string; font: string }>) => {
       state.customizations.fonts[action.payload.sectionId] = action.payload.font;
     },
+    reorderSections: (state, action: PayloadAction<{ oldIndex: number; newIndex: number }>) => {
+      if (state.selectedTemplate) {
+        const { oldIndex, newIndex } = action.payload;
+        const sections = [...state.selectedTemplate.sections];
+        const [movedSection] = sections.splice(oldIndex, 1);
+        sections.splice(newIndex, 0, movedSection);
+        state.selectedTemplate.sections = sections;
+      }
+    },
   },
 });
 
@@ -55,6 +64,7 @@ export const {
   updateSectionColor, 
   updateContent, 
   updateImage, 
-  updateFont 
+  updateFont,
+  reorderSections
 } = templateSlice.actions;
 export default templateSlice.reducer;

@@ -2,9 +2,12 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { HexColorPicker } from 'react-colorful';
 import { RootState } from '../store/store';
-import { updateSectionColor, updateContent, updateImage, updateFont } from '../store/templateSlice';
-import { ChevronDown, ChevronUp, Image, X, Menu } from 'lucide-react';
+import { updateSectionColor, updateContent, updateImage, updateFont, reorderSections } from '../store/templateSlice';
+import { ChevronDown, ChevronUp, Image, X, Menu, GripVertical } from 'lucide-react';
 import { ImageUploader } from './ImageUploader';
+import { DndContext, DragEndEvent, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const fontOptions = [
   { value: 'font-sans', label: 'Sans Serif' },
@@ -12,13 +15,78 @@ const fontOptions = [
   { value: 'font-mono', label: 'Monospace' },
 ];
 
+interface SortableSectionProps {
+  id: string;
+  type: string;
+  isActive: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}
+
+const SortableSection: React.FC<SortableSectionProps> = ({ id, type, isActive, onToggle, children }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 1 : 0,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className={`mb-6 ${isDragging ? 'opacity-50' : ''}`}>
+      <div className="flex items-center justify-between w-full p-3 bg-gray-50 rounded hover:bg-gray-100 transition-colors">
+        <div {...attributes} {...listeners} className="cursor-grab">
+          <GripVertical className="w-5 h-5 text-gray-500" />
+        </div>
+        <h3 className="font-medium flex-1 ml-3">{type.charAt(0).toUpperCase() + type.slice(1)}</h3>
+        <button
+          onClick={onToggle}
+          className="ml-3"
+        >
+          {isActive ? (
+            <ChevronUp className="w-5 h-5 text-gray-500" />
+          ) : (
+            <ChevronDown className="w-5 h-5 text-gray-500" />
+          )}
+        </button>
+      </div>
+      {isActive && <div className="mt-3 space-y-4">{children}</div>}
+    </div>
+  );
+};
+
 export const Editor: React.FC = () => {
   const dispatch = useDispatch();
   const { selectedTemplate, customizations } = useSelector((state: RootState) => state.template);
   const [activeSectionId, setActiveSectionId] = React.useState<string | null>(null);
   const [isOpen, setIsOpen] = React.useState(true);
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   if (!selectedTemplate) return null;
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    
+    if (over && active.id !== over.id) {
+      const oldIndex = selectedTemplate.sections.findIndex(section => section.id === active.id);
+      const newIndex = selectedTemplate.sections.findIndex(section => section.id === over.id);
+      
+      dispatch(reorderSections({ oldIndex, newIndex }));
+    }
+  };
 
   const handleImageUpdate = (key: string, url: string) => {
     dispatch(updateImage({ key, url }));
@@ -189,22 +257,23 @@ export const Editor: React.FC = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto p-4">
-            {selectedTemplate.sections.map((section) => (
-              <div key={section.id} className="mb-6">
-                <button
-                  className="flex items-center justify-between w-full p-3 bg-gray-50 rounded hover:bg-gray-100 transition-colors"
-                  onClick={() => toggleSection(section.id)}
-                >
-                  <h3 className="font-medium">{section.type.charAt(0).toUpperCase() + section.type.slice(1)}</h3>
-                  {activeSectionId === section.id ? (
-                    <ChevronUp className="w-5 h-5 text-gray-500" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-500" />
-                  )}
-                </button>
-
-                {activeSectionId === section.id && (
-                  <div className="mt-3 space-y-4">
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={selectedTemplate.sections.map(section => section.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {selectedTemplate.sections.map((section) => (
+                  <SortableSection
+                    key={section.id}
+                    id={section.id}
+                    type={section.type}
+                    isActive={activeSectionId === section.id}
+                    onToggle={() => toggleSection(section.id)}
+                  >
                     <div className="mt-4">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Background Color
@@ -317,10 +386,10 @@ export const Editor: React.FC = () => {
                       }
                       return null;
                     })}
-                  </div>
-                )}
-              </div>
-            ))}
+                  </SortableSection>
+                ))}
+              </SortableContext>
+            </DndContext>
           </div>
         </div>
       </div>
