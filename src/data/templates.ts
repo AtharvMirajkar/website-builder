@@ -413,4 +413,132 @@ export const templates: Template[] = [
       },
     ],
   },
+  {
+    id: 'medical-care',
+    name: 'MediCare Plus',
+    previewImage: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&q=80&w=600',
+    sections: [
+      {
+        id: 'hero',
+        type: 'hero',
+        content: {
+          heading: 'Advanced Healthcare Solutions',
+          subheading: 'Providing exceptional medical care with cutting-edge technology and compassionate service',
+          ctaText: 'Book Appointment',
+          backgroundImage: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=1200',
+        },
+        style: {
+          backgroundColor: '#0f766e',
+          textColor: '#ffffff',
+          padding: '6rem',
+        },
+      },
+      {
+        id: 'features',
+        type: 'features',
+        content: {
+          heading: 'Our Services',
+          features: [
+            { title: 'Primary Care', description: 'Comprehensive health assessments and preventive care', icon: 'Heart' },
+            { title: 'Specialized Treatment', description: 'Expert care in multiple medical specialties', icon: 'Stethoscope' },
+            { title: 'Emergency Care', description: '24/7 emergency medical services', icon: 'AlertCircle' },
+          ],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#0f766e',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'departments',
+        type: 'portfolio',
+        content: {
+          heading: 'Medical Departments',
+          projects: [
+            {
+              title: 'Cardiology',
+              category: 'Heart Care',
+              image: 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?auto=format&fit=crop&q=80&w=600',
+              description: 'Advanced cardiac care and treatments',
+            },
+            {
+              title: 'Neurology',
+              category: 'Brain & Nerve Care',
+              image: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=600',
+              description: 'Expert neurological treatments',
+            },
+            {
+              title: 'Pediatrics',
+              category: 'Child Care',
+              image: 'https://images.unsplash.com/photo-1581056771107-24758e405c35?auto=format&fit=crop&q=80&w=600',
+              description: 'Specialized care for children',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#f0fdfa',
+          textColor: '#0f766e',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'about',
+        type: 'about',
+        content: {
+          heading: 'Why Choose Us',
+          description: 'With state-of-the-art facilities and a team of experienced healthcare professionals, we provide comprehensive medical care focused on your well-being. Our patient-centered approach ensures you receive the highest quality treatment with compassion and respect.',
+          image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=400',
+          skills: ['Advanced Technology', 'Expert Physicians', 'Patient-Centered Care', 'Modern Facilities'],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#0f766e',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'testimonials',
+        type: 'testimonials',
+        content: {
+          heading: 'Patient Testimonials',
+          testimonials: [
+            {
+              quote: 'The care and attention I received was exceptional. The staff went above and beyond.',
+              author: 'Robert Wilson',
+              position: 'Patient',
+              image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150',
+            },
+            {
+              quote: 'State-of-the-art facilities and incredibly knowledgeable doctors. Highly recommended!',
+              author: 'Emily Chang',
+              position: 'Patient',
+              image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#f0fdfa',
+          textColor: '#0f766e',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'contact',
+        type: 'contact',
+        content: {
+          heading: 'Schedule an Appointment',
+          subheading: 'Your health is our priority',
+          email: 'appointments@medicare-plus.com',
+          phone: '+1 (555) 789-0123',
+          address: '789 Healthcare Avenue, New York, NY 10001',
+        },
+        style: {
+          backgroundColor: '#0f766e',
+          textColor: '#ffffff',
+          padding: '4rem',
+        },
+      },
+    ],
+  },
 ];
