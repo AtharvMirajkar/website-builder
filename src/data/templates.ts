@@ -541,4 +541,149 @@ export const templates: Template[] = [
       },
     ],
   },
+  {
+    id: 'tech-academy',
+    name: 'TechPro Academy',
+    previewImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600',
+    sections: [
+      {
+        id: 'hero',
+        type: 'hero',
+        content: {
+          heading: 'Master Modern Technology',
+          subheading: 'Professional tech courses with industry experts at unbeatable prices',
+          ctaText: 'Browse Courses',
+          backgroundImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1200',
+        },
+        style: {
+          backgroundColor: '#4c1d95',
+          textColor: '#ffffff',
+          padding: '6rem',
+        },
+      },
+      {
+        id: 'features',
+        type: 'features',
+        content: {
+          heading: 'Why Choose TechPro Academy',
+          features: [
+            { title: 'Expert Instructors', description: 'Learn from industry professionals', icon: 'GraduationCap' },
+            { title: 'Flexible Learning', description: 'Study at your own pace', icon: 'Clock' },
+            { title: 'Corporate Discounts', description: 'Special rates for organizations', icon: 'Briefcase' },
+          ],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#4c1d95',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'courses',
+        type: 'portfolio',
+        content: {
+          heading: 'Featured Courses',
+          projects: [
+            {
+              title: 'Full-Stack Development',
+              category: 'Web Development',
+              image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600',
+              description: 'Master modern web development - 30% off for companies',
+            },
+            {
+              title: 'Cloud Architecture',
+              category: 'Cloud Computing',
+              image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600',
+              description: 'AWS, Azure, and GCP expertise - Group discounts available',
+            },
+            {
+              title: 'AI & Machine Learning',
+              category: 'Artificial Intelligence',
+              image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=600',
+              description: 'Practical AI implementation - Enterprise packages',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#f5f3ff',
+          textColor: '#4c1d95',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'pricing',
+        type: 'features',
+        content: {
+          heading: 'Pricing & Discounts',
+          features: [
+            { title: 'Individual Plan', description: 'Access all courses - $49/month', icon: 'User' },
+            { title: 'Team Plan', description: '5+ members - 25% off per user', icon: 'Users' },
+            { title: 'Enterprise', description: 'Custom solutions for large organizations', icon: 'Building' },
+          ],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#4c1d95',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'testimonials',
+        type: 'testimonials',
+        content: {
+          heading: 'Success Stories',
+          testimonials: [
+            {
+              quote: 'Our teams productivity increased significantly after taking the cloud architecture course.',
+              author: 'James Wilson',
+              position: 'CTO, TechStart Inc.',
+              image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150',
+            },
+            {
+              quote: 'The corporate discount made it possible to train our entire development team.',
+              author: 'Lisa Chen',
+              position: 'HR Director, InnovateCorp',
+              image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150',
+            },
+          ],
+        },
+        style: {
+          backgroundColor: '#f5f3ff',
+          textColor: '#4c1d95',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'about',
+        type: 'about',
+        content: {
+          heading: 'About TechPro Academy',
+          description: 'We specialize in providing high-quality technology education with a focus on practical, industry-relevant skills. Our corporate training programs offer customized learning paths and significant discounts for organizations looking to upskill their teams.',
+          image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400',
+          skills: ['Corporate Training', 'Custom Learning Paths', 'Certification Programs', 'Enterprise Solutions'],
+        },
+        style: {
+          backgroundColor: '#ffffff',
+          textColor: '#4c1d95',
+          padding: '4rem',
+        },
+      },
+      {
+        id: 'contact',
+        type: 'contact',
+        content: {
+          heading: 'Get Started Today',
+          subheading: 'Contact us for corporate packages and custom training solutions',
+          email: 'enterprise@techpro.academy',
+          phone: '+1 (555) 234-5678',
+          address: '123 Tech Avenue, Silicon Valley, CA 94025',
+        },
+        style: {
+          backgroundColor: '#4c1d95',
+          textColor: '#ffffff',
+          padding: '4rem',
+        },
+      },
+    ],
+  },
 ];
